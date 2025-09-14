@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -25,7 +25,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     FormsModule,
     ReactiveFormsModule,
     NgIf,
-    NgFor,
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
@@ -99,6 +98,10 @@ export class FormComponent {
     control.markAsDirty();
     control.markAsTouched();
     control.updateValueAndValidity({ onlySelf: true });
+  }
+
+  changeIsSubmitted() {
+    this.isSubmitted = false;
   }
 
   exportPDF() {

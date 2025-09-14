@@ -1,13 +1,13 @@
 import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse } from "@angular/common/http";
 import { delay, Observable, of } from "rxjs";
-import { Form } from "../interfaces/form.interface";
+import { IForm } from "../interfaces/form.interface";
 
 
 export const mockPostInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
-  const body: Form = req.body;
+  const body: IForm = req.body;
   const randomDelay = Math.random() * 1000;
 
   if (req.method === 'POST' && req.url.endsWith('/api/form-export')) {
@@ -22,7 +22,7 @@ export const mockPostInterceptor: HttpInterceptorFn = (
   return next(req);
 };
 
-function serverSideFormValidation(body: Form, randomDelay: number) {
+function serverSideFormValidation(body: IForm, randomDelay: number) {
 
   //validation failures
   if (!body.fullName) {
@@ -67,15 +67,22 @@ function serverSideFormValidation(body: Form, randomDelay: number) {
 }
 
 function serverSidePdfValidation(formData: FormData, randomDelay: number) {
-
   const randomId = Math.floor(Math.random() * 1000);
-  // Success
+
+  // Map the fields from FormData manually
   const mockResponse = {
     id: randomId,
     success: true,
     timestamp: new Date().toISOString(),
-    ...formData
+    fullName: formData.get('fullName'),
+    email: formData.get('email'),
+    phone: formData.get('phone'),
+    invoiceNumber: formData.get('invoiceNumber'),
+    amount: formData.get('amount'),
+    invoiceDate: formData.get('invoiceDate'),
+    signature: formData.get('signature')
   };
+
   return of(new HttpResponse({ status: 200, body: mockResponse })).pipe(delay(randomDelay));
 }
 

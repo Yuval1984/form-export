@@ -1,15 +1,14 @@
 @use "../../styles/variables.scss" as variables;
-/* Root title */
+
 .title {
   text-align: center;
   margin-bottom: 24px;
   padding-top: 16px;
   font-size: 24px;
   font-weight: 500;
-  color: variables.$title-color; // Material primary color
+  color: variables.$title-color;
 }
 
-/* Main form container */
 .example-form {
   display: flex;
   flex-direction: column;
@@ -21,7 +20,6 @@
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-  /* Two-column wrapper for inputs */
   .wrapper {
     display: flex;
     gap: 16px;
@@ -34,23 +32,19 @@
     }
   }
 
-  /* Material form fields */
   .full-width {
     width: 100%;
   }
 
-  /* Error messages */
   mat-error {
     color: #f44336;
     font-size: 12px;
   }
 
-  /* Divider spacing */
   mat-divider {
     margin: 16px 0;
   }
 
-  /* Buttons */
   button {
     align-self: flex-end;
   }
@@ -60,6 +54,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .footer-checkbox {
+    margin-left: -10px;
+  }
 
   button:not(:disabled) {
     &.submitted {
@@ -80,21 +78,20 @@
   }
 }
 
-/* ✅ Responsive styles */
 @media (max-width: 768px) {
   .example-form {
     padding: 16px;
 
     .wrapper {
-      flex-direction: column; // stack fields
+      flex-direction: column;
     }
 
     .signature-container {
-      padding: 10px 20px; // less padding on small screens
+      padding: 10px 20px;
     }
 
     .signature-canvas {
-      height: 150px; // shrink canvas on small screens
+      height: 150px;
     }
   }
 }
@@ -113,7 +110,7 @@
     }
 
     .signature-canvas {
-      height: 120px; // even smaller for phones
+      height: 120px;
     }
   }
 }

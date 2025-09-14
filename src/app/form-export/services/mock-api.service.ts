@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Form } from '../interfaces/form.interface';
+import { IForm } from '../interfaces/form.interface';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ export class MockApiService {
   private formExportLabels = FormExportLabels;
   constructor(private http: HttpClient, private spinner: NgxSpinnerService, private toastr: ToastrService) { }
 
-  exportForm(form: Form): Observable<any> {
+  exportForm(form: IForm): Observable<any> {
     this.spinner.show();
 
     return this.http.post(`${this.apiUrl}/form-export`, form).pipe(

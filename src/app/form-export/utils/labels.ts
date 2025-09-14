@@ -6,7 +6,6 @@ export const FormExportLabels = {
         invoiceNumber: 'Invoice Number',
         amount: 'Amount',
         invoiceDate: 'Invoice Date',
-        signature: 'Signature',
         signatureClear: 'Clear',
         invoiceExported: 'Invoice exported successfully',
         invoiceWasAlreadyExported: 'Invoice was already exported',

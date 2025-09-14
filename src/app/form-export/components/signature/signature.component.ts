@@ -3,9 +3,9 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, Output, 
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import SignaturePad from 'signature_pad';
 import { signatureConfig } from './signature.config';
 import { FormExportLabels } from '../../utils/labels';
+import SignaturePad from 'signature_pad';
 
 @Component({
   selector: 'app-signature',
@@ -40,6 +40,8 @@ export class SignatureComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.signaturePad.removeEventListener("endStroke", this.endStrokeHandler);
   }
+
+  // Adjusts canvas for high-DPI screens like smartphones
 
   adjustCanvasForHighDPI() {
     const canvas = this.signatureCanvas.nativeElement;

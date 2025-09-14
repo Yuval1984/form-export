@@ -1,5 +1,7 @@
 <div class="signature-container">
-  <h3 class="signature-title">Signature</h3>
+  <h3 class="signature-title">
+    {{ formExportLabels.signatureLabels.signature }}
+  </h3>
 
   <canvas
     #signatureCanvas
@@ -20,7 +22,7 @@
       (click)="clearSignature()"
       [disabled]="!signaturePad || isSignatureEmpty"
     >
-      Clear
+      {{ formExportLabels.signatureLabels.clear }}
     </button>
   </div>
 

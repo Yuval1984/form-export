@@ -195,6 +195,8 @@
   <div class="footer-container">
     <mat-checkbox
       formControlName="shouldDownloadPdf"
+      class="footer-checkbox"
+      (change)="changeIsSubmitted()"
       disableRipple
       [tabIndex]="-1"
       >{{ formExportLabels.formLabels.downloadPdf }}</mat-checkbox
