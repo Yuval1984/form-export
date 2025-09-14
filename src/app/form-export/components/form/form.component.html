@@ -1,0 +1,229 @@
+<h1 class="title">Form Export</h1>
+
+<form
+  #formToExport
+  class="example-form"
+  [formGroup]="userForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="wrapper">
+    <div>
+      <!-- Full Name -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ formExportLabels.formLabels.fullName }}</mat-label>
+        <input matInput formControlName="fullName" placeholder="Your name" />
+        <button
+          mat-icon-button
+          *ngIf="userForm.get('fullName')?.value"
+          matSuffix
+          (click)="clearField('fullName')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="userForm.get('fullName')?.hasError('required')">
+          {{ formExportLabels.errorLabels.fullNameIs }}
+          <strong>{{ formExportLabels.errorLabels.required }}</strong>
+        </mat-error>
+
+        <mat-error
+          *ngIf="userForm.get('fullName')?.hasError('startsWithNumber')"
+        >
+          {{ formExportLabels.errorLabels.fullNameCannotStartWithNumber }}
+        </mat-error>
+
+        <mat-error *ngIf="userForm.get('fullName')?.hasError('missingSpace')">
+          {{ formExportLabels.errorLabels.fullNameMustContainSpace }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ formExportLabels.formLabels.email }}</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="{{ formExportLabels.placeholderLabels.email }}"
+        />
+        <button
+          mat-icon-button
+          *ngIf="userForm.get('email')?.value"
+          matSuffix
+          (click)="clearField('email')"
+          tabindex="-1"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error
+          *ngIf="
+            userForm.get('email')?.hasError('email') &&
+            !userForm.get('email')?.hasError('required')
+          "
+        >
+          {{ formExportLabels.errorLabels.email }}
+        </mat-error>
+        <mat-error *ngIf="userForm.get('email')?.hasError('required')">
+          {{ formExportLabels.errorLabels.emailIs }}
+          <strong>{{ formExportLabels.errorLabels.required }}</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Phone -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ formExportLabels.formLabels.phone }}</mat-label>
+        <input
+          matInput
+          type="tel"
+          formControlName="phone"
+          placeholder="{{ formExportLabels.placeholderLabels.phone }}"
+        />
+        <button
+          mat-icon-button
+          *ngIf="userForm.get('phone')?.value"
+          matSuffix
+          (click)="clearField('phone')"
+          tabindex="-1"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="userForm.get('phone')?.hasError('required')">
+          {{ formExportLabels.errorLabels.phoneIs }}
+          <strong>{{ formExportLabels.errorLabels.required }}</strong>
+        </mat-error>
+        <mat-error *ngIf="userForm.get('phone')?.hasError('minlength')">
+          {{ formExportLabels.errorLabels.minlength }}
+        </mat-error>
+        <mat-error *ngIf="userForm.get('phone')?.hasError('pattern')">
+          {{ formExportLabels.errorLabels.phoneMustContainOnlyDigits }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <!-- Invoice Number -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ formExportLabels.formLabels.invoiceNumber }}</mat-label>
+        <input
+          matInput
+          formControlName="invoiceNumber"
+          placeholder="{{ formExportLabels.placeholderLabels.invoiceNumber }}"
+        />
+        <button
+          mat-icon-button
+          *ngIf="userForm.get('invoiceNumber')?.value"
+          matSuffix
+          (click)="clearField('invoiceNumber')"
+          tabindex="-1"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="userForm.get('invoiceNumber')?.hasError('required')">
+          {{ formExportLabels.errorLabels.invoiceNumberIs }}
+          <strong>{{ formExportLabels.errorLabels.required }}</strong>
+        </mat-error>
+        <mat-error *ngIf="userForm.get('invoiceNumber')?.hasError('pattern')">
+          {{ formExportLabels.errorLabels.only }}
+          <strong>{{ formExportLabels.errorLabels.alphanumeric }}</strong>
+          {{ formExportLabels.errorLabels.charactersAllowed }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Amount -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ formExportLabels.formLabels.amount }}</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="amount"
+          placeholder="{{ formExportLabels.placeholderLabels.amount }}"
+        />
+        <button
+          mat-icon-button
+          *ngIf="userForm.get('amount')?.value"
+          matSuffix
+          (click)="clearField('amount')"
+          tabindex="-1"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="userForm.get('amount')?.hasError('required')">
+          {{ formExportLabels.errorLabels.amountIs }}
+          <strong>{{ formExportLabels.errorLabels.required }}</strong>
+        </mat-error>
+        <mat-error *ngIf="userForm.get('amount')?.hasError('min')">
+          {{ formExportLabels.errorLabels.amountMustBeA }}
+          <strong>{{ formExportLabels.errorLabels.positiveValue }}</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Invoice Date -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>{{ formExportLabels.formLabels.invoiceDate }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="invoiceDate"
+          placeholder="{{ formExportLabels.placeholderLabels.invoiceDate }}"
+        />
+        <button
+          mat-icon-button
+          *ngIf="userForm.get('invoiceDate')?.value"
+          matSuffix
+          (click)="clearField('invoiceDate')"
+          tabindex="-1"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="userForm.get('invoiceDate')?.hasError('required')">
+          {{ formExportLabels.errorLabels.invoiceDateIs }}
+          <strong>{{ formExportLabels.errorLabels.required }}</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- signature -->
+  <app-signature (signatureChange)="setSignature($event)"></app-signature>
+
+  <mat-divider></mat-divider>
+
+  <!-- <div class="footer-container"> -->
+  <!-- should download pdf -->
+  <div class="footer-container">
+    <mat-checkbox
+      formControlName="shouldDownloadPdf"
+      disableRipple
+      [tabIndex]="-1"
+      >{{ formExportLabels.formLabels.downloadPdf }}</mat-checkbox
+    >
+
+    <!-- Submit -->
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!isFormValid()"
+      [ngClass]="{
+        submitted: isSubmitted && userForm.valid,
+        'not-submitted':
+          (isSubmitted && !userForm.valid) || (!isSubmitted && !userForm.valid)
+      }"
+    >
+      <mat-icon *ngIf="!isSubmitted">{{
+        formExportLabels.buttonLabels.save
+      }}</mat-icon>
+      <mat-icon *ngIf="isSubmitted">{{
+        formExportLabels.buttonLabels.check
+      }}</mat-icon>
+      {{
+        isSubmitted
+          ? formExportLabels.buttonLabels.done
+          : formExportLabels.buttonLabels.submit
+      }}
+    </button>
+  </div>
+</form>

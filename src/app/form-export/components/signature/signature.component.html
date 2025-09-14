@@ -1,0 +1,34 @@
+<div class="signature-container">
+  <h3 class="signature-title">Signature</h3>
+
+  <canvas
+    #signatureCanvas
+    class="signature-canvas"
+    [ngClass]="{
+      'signature-canvas-border-error': !isSignatureValid(),
+      'signature-canvas-border': isSignatureValid()
+    }"
+    width="600"
+    height="200"
+  ></canvas>
+
+  <div class="signature-buttons" style="margin-top: 8px">
+    <button
+      mat-raised-button
+      color="warn"
+      type="button"
+      (click)="clearSignature()"
+      [disabled]="!signaturePad || isSignatureEmpty"
+    >
+      Clear
+    </button>
+  </div>
+
+  <mat-error
+    *ngIf="signatureControl?.hasError('required') && signatureControl?.touched"
+    class="signature-error"
+  >
+    {{ formExportLabels.errorLabels.signatureIs }}
+    <strong>{{ formExportLabels.errorLabels.required }}</strong>
+  </mat-error>
+</div>

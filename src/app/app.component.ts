@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
+import { Component } from "@angular/core";
+import { FormComponent } from "./form-export/components/form/form.component";
+import { NgxSpinnerModule } from "ngx-spinner";
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [FormComponent, NgxSpinnerModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  standalone: true,
 })
-export class AppComponent {
-  title = 'form-export';
-}
+export class AppComponent { }
