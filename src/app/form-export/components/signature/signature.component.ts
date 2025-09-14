@@ -28,6 +28,7 @@ export class SignatureComponent implements AfterViewInit, OnDestroy {
   formExportLabels = FormExportLabels;
 
   ngAfterViewInit() {
+    this.adjustCanvasForHighDPI();
     this.signaturePad = new SignaturePad(this.signatureCanvas.nativeElement, {
       backgroundColor: signatureConfig.backgroundColor,
       penColor: signatureConfig.penColor
@@ -38,6 +39,20 @@ export class SignatureComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.signaturePad.removeEventListener("endStroke", this.endStrokeHandler);
+  }
+
+  adjustCanvasForHighDPI() {
+    const canvas = this.signatureCanvas.nativeElement;
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+    const width = canvas.offsetWidth;
+    const height = canvas.offsetHeight;
+
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+
+    const ctx = canvas.getContext('2d');
+    if (ctx) ctx.scale(ratio, ratio);
   }
 
   endStrokeHandler = () => {
