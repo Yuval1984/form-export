@@ -1,8 +1,8 @@
-<h1 class="title">Form Export</h1>
+<h1 class="title">{{ formExportLabels.formLabels.title }}</h1>
 
 <form
   #formToExport
-  class="example-form"
+  class="export-form"
   [formGroup]="userForm"
   (ngSubmit)="onSubmit()"
 >

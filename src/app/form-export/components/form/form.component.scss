@@ -9,14 +9,14 @@
   color: variables.$title-color;
 }
 
-.example-form {
+.export-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
   max-width: 700px;
   margin: 0 auto;
   padding: 24px;
-  background: #fff;
+  background: variables.$white-color;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
@@ -37,7 +37,7 @@
   }
 
   mat-error {
-    color: #f44336;
+    color: variables.$error-color;
     font-size: 12px;
   }
 
@@ -61,8 +61,8 @@
 
   button:not(:disabled) {
     &.submitted {
-      background-color: #2ab80d;
-      color: #ffffff;
+      background-color: variables.$success-color;
+      color: variables.$white-color;
       transform: scale(1.05);
       transition: transform 0.3s ease-in-out;
       width: 100px;
@@ -70,7 +70,7 @@
 
     &.not-submitted {
       background-color: variables.$title-color;
-      color: #ffffff;
+      color: variables.$white-color;
       transform: scale(1.05);
       transition: transform 0.3s ease-in-out;
       width: 100px;
@@ -79,38 +79,46 @@
 }
 
 @media (max-width: 768px) {
-  .example-form {
+  .export-form {
     padding: 16px;
 
     .wrapper {
       flex-direction: column;
+      gap: 12px;
     }
 
-    .signature-container {
-      padding: 10px 20px;
-    }
-
-    .signature-canvas {
+    app-signature .signature-canvas {
       height: 150px;
+    }
+
+    .footer-container {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+
+      button {
+        width: 100%;
+      }
     }
   }
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 20px;
-  }
-
-  .example-form {
-    gap: 12px;
+  .export-form {
     padding: 12px;
 
-    .signature-container {
-      padding: 8px;
+    .wrapper > div {
+      gap: 12px;
     }
 
-    .signature-canvas {
+    app-signature .signature-canvas {
       height: 120px;
+    }
+
+    .footer-container {
+      button {
+        width: 100%;
+      }
     }
   }
 }
