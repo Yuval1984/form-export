@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule, DatePipe, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -31,10 +31,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDatepickerModule,
     MatNativeDateModule,
     SignatureComponent,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
+  providers: [DecimalPipe],
   templateUrl: './form.component.html',
-  styleUrl: './form.component.scss'
+  styleUrl: './form.component.scss',
+  standalone: true,
 })
 export class FormComponent {
   title = 'form-export';
@@ -44,7 +46,7 @@ export class FormComponent {
   isSubmitted = false;
   formExportLabels = FormExportLabels;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private mockApiService: MockApiService) {
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private mockApiService: MockApiService, private decimalPipe: DecimalPipe) {
     this.userForm = this.fb.group({
       fullName: ['', [Validators.required, fullNameValidator()]],
       email: ['', [Validators.required, Validators.email]],
@@ -104,6 +106,11 @@ export class FormComponent {
     this.isSubmitted = false;
   }
 
+  get formattedAmount(): string {
+    const value = this.userForm.get('amount')?.value;
+    return this.decimalPipe.transform(value, '1.0-0') + ' $';
+  }
+
   exportPDF() {
     const pdf = new jsPDF('p', 'mm', 'a4');
     const datePipe = new DatePipe('en-GB');
@@ -142,7 +149,7 @@ export class FormComponent {
       { label: 'Full Name', value: this.userForm.get('fullName')?.value },
       { label: 'Email', value: this.userForm.get('email')?.value },
       { label: 'Phone', value: this.userForm.get('phone')?.value },
-      { label: 'Amount', value: this.userForm.get('amount')?.value },
+      { label: 'Amount', value: this.formattedAmount },
     ];
 
     fields.forEach((field, index) => {

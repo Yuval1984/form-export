@@ -16,7 +16,8 @@ import SignaturePad from 'signature_pad';
     NgIf,
     MatButtonModule,],
   templateUrl: './signature.component.html',
-  styleUrl: './signature.component.scss'
+  styleUrl: './signature.component.scss',
+  standalone: true,
 })
 export class SignatureComponent implements AfterViewInit, OnDestroy {
   signatureControl: FormControl = new FormControl('', Validators.required)

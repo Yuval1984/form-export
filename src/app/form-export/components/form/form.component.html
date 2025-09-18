@@ -34,6 +34,12 @@
         <mat-error *ngIf="userForm.get('fullName')?.hasError('missingSpace')">
           {{ formExportLabels.errorLabels.fullNameMustContainSpace }}
         </mat-error>
+
+        <mat-error
+          *ngIf="userForm.get('fullName')?.hasError('missingSecondName')"
+        >
+          {{ formExportLabels.errorLabels.fullNameMustContainSecondName }}
+        </mat-error>
       </mat-form-field>
 
       <!-- Email -->

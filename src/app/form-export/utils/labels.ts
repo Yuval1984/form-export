@@ -30,6 +30,7 @@ export const FormExportLabels = {
         fullNameIs: 'Full Name is',
         fullNameCannotStartWithNumber: 'Full Name cannot start with a number',
         fullNameMustContainSpace: 'Full Name must contain a space (first and last name)',
+        fullNameMustContainSecondName: 'Full Name must contain at least a second name',
         emailIs: 'Email is',
         phoneIs: 'Phone is',
         invoiceNumberIs: 'Invoice Number is',
